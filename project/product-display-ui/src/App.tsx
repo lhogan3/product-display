@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { Shoe } from "./types";
 import "./App.css";
 import ShoeForm from "./ShoeForm";
+import ShoeCard from "./ShoeCard";
 
 function App() {
   const [shoes, setShoes] = useState<Shoe[]>([]);
@@ -45,21 +46,14 @@ function App() {
 
         <div className="shoe-list-container">
           <h2>Available Shoes ({shoes.length})</h2>
-          {error && <p className="error-message">🚨 {error}</p>}
+          {error && <p className="error-message">{error}</p>}
 
           {loading && shoes.length === 0 && <p>Loading products...</p>}
 
           {shoes.length > 0 && (
             <ul className="shoe-list">
               {shoes.map((shoe) => (
-                <li key={shoe.id}>
-                  <p>
-                    <strong>{shoe.name}</strong>
-                  </p>
-                  <p>Color: {shoe.color}</p>
-                  <p>Size: {shoe.size}</p>
-                  <p className="id-tag">ID: {shoe.id}</p>
-                </li>
+                <ShoeCard key={shoe.id} shoe={shoe} />
               ))}
             </ul>
           )}

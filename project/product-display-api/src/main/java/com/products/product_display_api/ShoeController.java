@@ -17,6 +17,13 @@ public class ShoeController {
         return shoeRepository.findAll();
     }
 
+    @GetMapping("/name")
+    public Shoe getShoeByName(@RequestParam String name) {
+        return shoeRepository.findAll().stream()
+                .filter(shoe -> shoe.getName().toLowerCase().equals(name.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+    }
     @PostMapping
     public Shoe createShoe(@RequestBody Shoe shoe) {
         return shoeRepository.save(shoe);
